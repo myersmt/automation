@@ -16,6 +16,9 @@ TO DO
 > Make file that has cheat names and paths
 > If no prefixes sort by file type (i.e. .mp3 -> \Music)
 > Add Installer prefix for /applications folder
+> Maybe add a make new directory writable option in filename
+  if there isn't already a folder
+    (i.e. Homework_002_EandM2_ElectroStatics_dir-Homework\\002.pdf)
 '''
 #Libraries
 # from selectors import EpollSelector
