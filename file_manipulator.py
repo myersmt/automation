@@ -6,14 +6,22 @@ This program will look at the filename of files
 being put into /Downloads and move and rename
 them.
 '''
+'''
+TO DO
+~~~~~~
+> Make run at startup
+> Add more destinations
+> Make base for school(i.e. Clemson)
+> Run in background
+> Make file that has cheat names and paths
+> If no prefixes sort by file type (i.e. .mp3 -> \Music)
+'''
 #Libraries
 # from selectors import EpollSelector
 from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
 import os
 import time
-import json
-import shutil
 ##################################
 # Classes and functions
 
@@ -47,11 +55,11 @@ def adjust_prefixes(filename):
     paths = ['C:\\Users\\Waff\\Desktop\\newTest\\Clemson\\Spring_2022\\VR',
             'C:\\Users\\Waff\\Desktop\\newTest\\Clemson\\Spring_2022\\EandM2',
             'C:\\Users\\Waff\\Desktop\\newTest\\Clemson\\Spring_2022\\TechWriting']
+    adjust_name = filename
     any_pref = any(pre in filename for pre in prefixes)
     pre = next(filter(lambda pre: pre in filename, prefixes), None)
     ind = prefixes.index(pre)
-    if any_pref:
-        adjust_name = filename
+    while any_pref:
         if pre+'_.' in adjust_name:
             adjust_name = adjust_name.replace('_.', '.')
         if pre+'_' in adjust_name:
@@ -60,6 +68,8 @@ def adjust_prefixes(filename):
             adjust_name = adjust_name.replace('_'+pre, '')
         else:
             adjust_name = adjust_name.replace(pre, '')
+        any_pref = any(pre in adjust_name for pre in prefixes)
+        pre = next(filter(lambda pre: pre in adjust_name, prefixes), None)
         fold = paths[ind]
     return(fold, adjust_name)
 
